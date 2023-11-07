@@ -129,6 +129,7 @@ def find_shortest_way(all_starts, all_goals, graph,matrix_length):
             shortest_way = -1
 
         elif len(dfs_result) < shortest_way:
+            print(dfs_result)
             shortest_way = len(dfs_result)
 
         if shortest_way==matrix_length:
