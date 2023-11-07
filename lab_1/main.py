@@ -65,7 +65,11 @@ def  zigzag_array(array):
 if __name__ == "__main__":
     result_mn = zigzag_mn(3,6)
     print(result_mn)
+    for i in result_mn:
+        print(i)
     print("-----------------------------")
 
-    result_array = zigzag_array([[1, 2, 6, 7, 12, 13], [3, 5, 8, 11, 14, 17], [4, 9, 10, 15, 16, 18]])
+    result_array = zigzag_array([[1, 2, 6, 7, 12, 13],
+                                 [3, 5, 8, 11, 14, 17],
+                                 [4, 9, 10, 15, 16, 18]])
     print(result_array)
