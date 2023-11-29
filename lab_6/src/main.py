@@ -7,6 +7,7 @@ class FiniteStateMachine:
         all_needle_starts = []
         starting_state = "s0"
         current_state = starting_state
+        states = self.states
 
         for symbol_index, symbol in enumerate(input_string):
             try:
@@ -18,6 +19,7 @@ class FiniteStateMachine:
                     current_state = starting_state
 
             if current_state == f"s{len(self.states)}":
+                current_state = starting_state
                 all_needle_starts.append(symbol_index - len(self.states) + 1)
 
         return all_needle_starts
@@ -30,12 +32,25 @@ def transitions_init(haystack, needle):
     states = {f"s{i}" for i in range(len(needle))}
     transitions = {}
 
+    first_symbol = needle[0]
+
     for i in range(len(needle)):
         current_state = "s" + str(i)
         next_state = "s" + str(i + 1)
-        transitions[current_state] = {needle[i]: next_state}
+        if first_symbol is not None and first_symbol is not needle[i]:
+            transitions[current_state] = {
+                needle[i]: next_state,
+                first_symbol: f"s{str(i-1)}",
+            }
+            first_symbol = None
+        else:
+            transitions[current_state] = {needle[i]: next_state}
+
+    for i in range(len(needle)):
+        current_state = "s" + str(i)
 
     transitions["s" + str(len(needle))] = {}
+    print(transitions)
 
     fsm = FiniteStateMachine(states, transitions)
     return fsm.process_input(haystack)
